@@ -5,7 +5,7 @@
   <artifactId>umb-service-creation-managment-vtwo</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>umb-service-creation-managment-vtwo Maven Webapp</name>
+  <name>umb-service-creation-managment-scepp Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
 		<spring.version>4.2.1.RELEASE</spring.version>
