@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class DeployUatRequest {
 private String serviceId;
+private String deploymentDate;
 }

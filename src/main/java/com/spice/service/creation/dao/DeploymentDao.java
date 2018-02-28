@@ -140,6 +140,7 @@ public class DeploymentDao {
             CallableStatement stmt=conn.prepareCall(str); 
 	         stmt.setString("in_service_id",deployUatRequest.getServiceId()); 
 	         stmt.setString("in_login_id",userId);
+	        // stmt.setString("in_deployment_date",deployUatRequest.getDeploymentDate());
 	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
 	         stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
 	         stmt.registerOutParameter("OutDesc", Types.VARCHAR);
@@ -166,6 +167,7 @@ public class DeploymentDao {
             CallableStatement stmt=conn.prepareCall(str); 
 	         stmt.setString("in_service_id",deployUatRequest.getServiceId()); 
 	         stmt.setString("in_login_id",userId);
+	      //   stmt.setString("in_deployment_date",deployUatRequest.getDeploymentDate());
 	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
 	         stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
 	         stmt.registerOutParameter("OutDesc", Types.VARCHAR);

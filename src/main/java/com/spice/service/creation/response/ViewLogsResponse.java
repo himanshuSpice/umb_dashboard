@@ -16,6 +16,8 @@ public class ViewLogsResponse implements RowMapper<ViewLogsResponse> {
 	private String deploymentType;
 	private String Username;
 	private String logDate;
+/*	private String version;
+	private String deploymentTime;*/
 
 	public ViewLogsResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ViewLogsResponse response = new ViewLogsResponse();
@@ -25,6 +27,8 @@ public class ViewLogsResponse implements RowMapper<ViewLogsResponse> {
 		response.setDeploymentType(rs.getString("deployment_type"));
 		response.setUsername(rs.getString("Username"));
 		response.setLogDate(rs.getString("log_date"));
+/*		response.setVersion(rs.getString("version"));
+		response.setDeploymentTime(rs.getString("deployment_time"));*/
 		return response;
 	}
 }

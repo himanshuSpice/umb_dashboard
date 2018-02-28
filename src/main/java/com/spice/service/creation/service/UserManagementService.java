@@ -123,6 +123,8 @@ public class UserManagementService {
 
 
 	public ResponseObj resetPassword(ResetPasswordRequest resetPasswordRequest, String userId) throws Exception {
+		UtilityData encryptData = new UtilityData();
+		resetPasswordRequest.setPassword(encryptData.getMD5(resetPasswordRequest.getPassword()));
 		 CallableStatement response=userManagementDao.resetPasswordRequest(resetPasswordRequest,userId);
 		 if(!"success".equalsIgnoreCase(response.getString("OutStatus")))
 			 throw new GenericException(response.getString("OutStatus"),response.getString("OutDesc"), Integer.valueOf(response.getString("OutResponseCode")));
