@@ -259,7 +259,7 @@ public class ServiceManagementDao {
 			 conn = DriverManager.getConnection(jdbcUrl, jdbcUserName,jdbcPassword); 
             CallableStatement stmt=conn.prepareCall(str); 
             stmt.setString("in_login_id", userId);
-	         stmt.setString("in_creation_mode", createServiceMasterRequest.getCreationMode());  
+	         stmt.setInt("in_creation_mode", Integer.parseInt(createServiceMasterRequest.getCreationMode()));  
 	         stmt.setString("in_source_service_id", createServiceMasterRequest.getSourceServiceId());
 	         stmt.setString("in_parent_service_id", createServiceMasterRequest.getParentServiceId());
 	         stmt.setString("in_service_name", createServiceMasterRequest.getServiceName());
