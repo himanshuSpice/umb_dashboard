@@ -25,7 +25,6 @@ import com.spice.service.creation.response.ViewMsisdnResponse;
 @Repository
 public class DeploymentDao {
 	
-	
 	private JdbcTemplate jdbcTemplateObject;
 
 	@Autowired
@@ -133,14 +132,14 @@ public class DeploymentDao {
 	}
 	
 	public CallableStatement deployUat(DeployUatRequest deployUatRequest,String  userId) throws Exception {
-		String str = "{call proc_service_deploy_uat(?,?,?,?,?)}";
+		String str = "{call proc_service_deploy_uat(?,?,?,?,?,?)}";
 		Connection conn = null;
 		try  {
 			 conn = DriverManager.getConnection(jdbcUrl,jdbcUserName,jdbcPassword); 
             CallableStatement stmt=conn.prepareCall(str); 
 	         stmt.setString("in_service_id",deployUatRequest.getServiceId()); 
 	         stmt.setString("in_login_id",userId);
-	        // stmt.setString("in_deployment_date",deployUatRequest.getDeploymentDate());
+	         stmt.setString("in_deployment_date",deployUatRequest.getDeploymentDate());
 	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
 	         stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
 	         stmt.registerOutParameter("OutDesc", Types.VARCHAR);
@@ -160,14 +159,14 @@ public class DeploymentDao {
 		}
 	
 	public CallableStatement deployLive(DeployUatRequest deployUatRequest,String  userId) throws Exception {
-		String str = "{call proc_service_deploy_live(?,?,?,?,?)}";
+		String str = "{call proc_service_deploy_live(?,?,?,?,?,?)}";
 		Connection conn = null;
 		try  {
 			 conn = DriverManager.getConnection(jdbcUrl,jdbcUserName,jdbcPassword); 
             CallableStatement stmt=conn.prepareCall(str); 
 	         stmt.setString("in_service_id",deployUatRequest.getServiceId()); 
 	         stmt.setString("in_login_id",userId);
-	      //   stmt.setString("in_deployment_date",deployUatRequest.getDeploymentDate());
+	         stmt.setString("in_deployment_date",deployUatRequest.getDeploymentDate());
 	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
 	         stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
 	         stmt.registerOutParameter("OutDesc", Types.VARCHAR);

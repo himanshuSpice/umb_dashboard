@@ -7,4 +7,5 @@ public class DeployViewLogsRequest {
 	private String deploymentType;
 	private String fromDate;
 	private String toDate;
+	
 }
