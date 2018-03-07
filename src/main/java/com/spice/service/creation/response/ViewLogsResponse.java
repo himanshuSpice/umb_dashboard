@@ -18,6 +18,7 @@ public class ViewLogsResponse implements RowMapper<ViewLogsResponse> {
 	private String logDate;
 	private String version;
 	private String deploymentTime;
+	private String status;
 	
 
 	public ViewLogsResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -30,6 +31,7 @@ public class ViewLogsResponse implements RowMapper<ViewLogsResponse> {
 		response.setLogDate(rs.getString("log_date"));
 		response.setVersion(rs.getString("version"));
 		response.setDeploymentTime(rs.getString("deployment_time"));
+		response.setStatus(rs.getString("status"));
 		return response;
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.spice.service.creation.dao.DeploymentDao;
 import com.spice.service.creation.exception.GenericException;
 import com.spice.service.creation.request.AddMsisdnRequest;
+import com.spice.service.creation.request.CancelDeploymentRequest;
 import com.spice.service.creation.request.DeployUatRequest;
 import com.spice.service.creation.request.DeployViewLogsRequest;
 import com.spice.service.creation.response.ResponseObj;
@@ -73,6 +74,15 @@ public class DeploymentService {
 	
 	public ResponseObj deployLive(DeployUatRequest deployUatRequest,String  userId)  throws Exception {
 		CallableStatement verifyResponses = deploymentDao.deployLive(deployUatRequest, userId);
+		if(!"success".equalsIgnoreCase(verifyResponses.getString("OutStatus")))
+			throw new GenericException(verifyResponses.getString("OutStatus"),verifyResponses.getString("OutDesc"), Integer.valueOf(verifyResponses.getString("OutResponseCode")));
+		
+		return new ResponseObj(null , verifyResponses.getString("OutStatus"),verifyResponses.getString("OutDesc"), Integer.valueOf(verifyResponses.getString("OutResponseCode")));
+	}
+	
+	
+	public ResponseObj cancelDeployment(CancelDeploymentRequest request ,String  userId)  throws Exception {
+		CallableStatement verifyResponses = deploymentDao.cancelDeployment(request, userId);
 		if(!"success".equalsIgnoreCase(verifyResponses.getString("OutStatus")))
 			throw new GenericException(verifyResponses.getString("OutStatus"),verifyResponses.getString("OutDesc"), Integer.valueOf(verifyResponses.getString("OutResponseCode")));
 		

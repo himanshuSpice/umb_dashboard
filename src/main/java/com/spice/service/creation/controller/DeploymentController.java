@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spice.service.creation.request.AddMsisdnRequest;
+import com.spice.service.creation.request.CancelDeploymentRequest;
 import com.spice.service.creation.request.DeployUatRequest;
 import com.spice.service.creation.request.DeployViewLogsRequest;
 import com.spice.service.creation.response.ResponseObj;
@@ -53,6 +54,11 @@ public class DeploymentController {
 	@RequestMapping(value = "/deployLive", method = RequestMethod.POST)
 	public ResponseObj deployLive(@RequestBody DeployUatRequest deployUatRequest, @RequestHeader("userId") String userId) throws Exception {
 		return deploymentService.deployLive(deployUatRequest, userId);
+	}
+	
+	@RequestMapping(value = "/cancelDeployment", method = RequestMethod.POST)
+	public ResponseObj deployLive(@RequestBody CancelDeploymentRequest request, @RequestHeader("userId") String userId) throws Exception {
+		return deploymentService.cancelDeployment(request, userId);
 	}
 	
 

@@ -20,6 +20,7 @@ import com.spice.service.creation.request.CreateServiceNode;
 import com.spice.service.creation.request.CreateServiceRequest;
 import com.spice.service.creation.request.EditServiceRequest;
 import com.spice.service.creation.request.FetchServiceDetailRequest;
+import com.spice.service.creation.request.LinkServiceNodeRequest;
 import com.spice.service.creation.request.RevokeRevisionRequest;
 import com.spice.service.creation.request.ServiceListRequest;
 import com.spice.service.creation.request.ServiceStatus;
@@ -237,5 +238,14 @@ public class ServiceManagement {
 		
 			return new ResponseObj(null, verifyResponses.getString("OutStatus"),verifyResponses.getString("OutDesc"), Integer.valueOf(verifyResponses.getString("OutResponseCode")));
 			}
+	
+	public ResponseObj linkServiceNode(LinkServiceNodeRequest linkServiceNodeRequest, String userId)  throws Exception {
+		CallableStatement verifyResponses = serviceManagementDao.linkServiceNode(linkServiceNodeRequest, userId);
+		if(!"success".equalsIgnoreCase(verifyResponses.getString("OutStatus"))) 
+			throw new GenericException(verifyResponses.getString("OutStatus"),verifyResponses.getString("OutDesc"), Integer.valueOf(verifyResponses.getString("OutResponseCode")));
+		
+			return new ResponseObj(null, verifyResponses.getString("OutStatus"),verifyResponses.getString("OutDesc"), Integer.valueOf(verifyResponses.getString("OutResponseCode")));
+			}
+	
 	
 }

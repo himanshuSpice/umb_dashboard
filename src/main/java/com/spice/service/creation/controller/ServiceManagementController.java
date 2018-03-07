@@ -19,6 +19,7 @@ import com.spice.service.creation.request.CreateServiceNode;
 import com.spice.service.creation.request.CreateServiceRequest;
 import com.spice.service.creation.request.EditServiceRequest;
 import com.spice.service.creation.request.FetchServiceDetailRequest;
+import com.spice.service.creation.request.LinkServiceNodeRequest;
 import com.spice.service.creation.request.RevokeRevisionRequest;
 import com.spice.service.creation.request.ServiceListRequest;
 import com.spice.service.creation.request.ServiceStatus;
@@ -130,6 +131,11 @@ public class ServiceManagementController {
 	@RequestMapping(value = "/revokeRevision", method = RequestMethod.POST)
 	public ResponseObj revokeRevisionService(@RequestBody RevokeRevisionRequest revokeRevisionRequest , @RequestHeader(value="userId") String loginId) throws Exception {
 		return serviceManagement.revokeRevisionService(revokeRevisionRequest, loginId);
+	}
+	
+	@RequestMapping(value = "/linkServiceNode", method = RequestMethod.POST)
+	public ResponseObj linkServiceNode(@RequestBody LinkServiceNodeRequest linkServiceNodeRequest , @RequestHeader(value="userId") String loginId) throws Exception {
+		return serviceManagement.linkServiceNode(linkServiceNodeRequest, loginId);
 	}
 	
 	

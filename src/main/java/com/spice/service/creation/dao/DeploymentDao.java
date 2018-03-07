@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spice.service.creation.request.AddMsisdnRequest;
+import com.spice.service.creation.request.CancelDeploymentRequest;
 import com.spice.service.creation.request.DeployUatRequest;
 import com.spice.service.creation.request.DeployViewLogsRequest;
 import com.spice.service.creation.response.ViewLogsResponse;
@@ -167,6 +168,33 @@ public class DeploymentDao {
 	         stmt.setString("in_service_id",deployUatRequest.getServiceId()); 
 	         stmt.setString("in_login_id",userId);
 	         stmt.setString("in_deployment_date",deployUatRequest.getDeploymentDate());
+	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
+	         stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
+	         stmt.registerOutParameter("OutDesc", Types.VARCHAR);
+	         stmt.execute();
+	         return stmt;
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+		finally {
+		    if (conn != null) {
+		        try {
+		        	conn.close();
+		        } catch (SQLException e) {  }
+		    }
+		}
+		return null;
+		}
+	
+	
+	public CallableStatement cancelDeployment(CancelDeploymentRequest request,String  userId) throws Exception {
+		String str = "{call proc_cancel_deployment(?,?,?,?,?)}";
+		Connection conn = null;
+		try  {
+			 conn = DriverManager.getConnection(jdbcUrl,jdbcUserName,jdbcPassword); 
+            CallableStatement stmt=conn.prepareCall(str); 
+	         stmt.setString("in_login_id",userId);
+	         stmt.setString("in_deployment_id",request.getDeploymentId());
 	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
 	         stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
 	         stmt.registerOutParameter("OutDesc", Types.VARCHAR);

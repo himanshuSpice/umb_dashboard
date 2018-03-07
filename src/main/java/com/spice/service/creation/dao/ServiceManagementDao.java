@@ -22,6 +22,7 @@ import com.spice.service.creation.request.CreateServiceNode;
 import com.spice.service.creation.request.CreateServiceRequest;
 import com.spice.service.creation.request.EditServiceRequest;
 import com.spice.service.creation.request.FetchServiceDetailRequest;
+import com.spice.service.creation.request.LinkServiceNodeRequest;
 import com.spice.service.creation.request.RevokeRevisionRequest;
 import com.spice.service.creation.request.ServiceListRequest;
 import com.spice.service.creation.request.ServiceStatus;
@@ -450,6 +451,35 @@ public class ServiceManagementDao {
 	         stmt.setString("in_version_major", revokeRevisionRequest.getVersionMajor()); 
 	         stmt.setString("in_version_minor", revokeRevisionRequest.getVersionMinor()); 
 	         stmt.setString("in_remarks", revokeRevisionRequest.getRemarks()); 
+	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
+	            stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
+	            stmt.registerOutParameter("OutDesc", Types.VARCHAR); 
+	         stmt.execute();
+	         return stmt;
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+		finally {
+		    if (conn != null) {
+		        try {
+		        	conn.close();
+		        } catch (SQLException e) {  }
+		    }
+		}
+		return null;
+		}
+	
+	
+	public CallableStatement linkServiceNode(LinkServiceNodeRequest linkServiceNodeRequest, String userId) throws Exception {
+		String str = "{call proc_link_service_node(?,?,?,?,?,?,?)}";
+		Connection conn = null;
+		try  {
+			 conn = DriverManager.getConnection(jdbcUrl, jdbcUserName,jdbcPassword); 
+            CallableStatement stmt=conn.prepareCall(str); 
+            stmt.setString("in_login_id", userId);
+	         stmt.setString("in_service_id", linkServiceNodeRequest.getServiceId()); 
+	         stmt.setString("in_source_node_id", linkServiceNodeRequest.getSourceNodeId()); 
+	         stmt.setString("in_dest_node_id", linkServiceNodeRequest.getDestNodeId()); 
 	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
 	            stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
 	            stmt.registerOutParameter("OutDesc", Types.VARCHAR); 
