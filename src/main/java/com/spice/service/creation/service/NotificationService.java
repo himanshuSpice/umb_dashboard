@@ -41,8 +41,8 @@ public class NotificationService {
 	}
 	
 	
-	public ResponseObj viewNotification(String loginId, String flag ) throws NumberFormatException, SQLException, GenericException {
-		CallableStatement verifyResponses = notificationDao.viewNotification(loginId, flag);
+	public ResponseObj viewNotification(String loginId, String flag, String status ) throws NumberFormatException, SQLException, GenericException {
+		CallableStatement verifyResponses = notificationDao.viewNotification(loginId, flag, status);
 		List<ViewNotificationResponse> responses = new ArrayList<ViewNotificationResponse>();
 		ResultSet set = verifyResponses.getResultSet();
 		if(!"success".equalsIgnoreCase(verifyResponses.getString("OutStatus")))

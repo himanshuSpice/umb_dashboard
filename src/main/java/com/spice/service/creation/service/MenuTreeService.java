@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.spice.service.creation.dao.MenuTreeDao;
 import com.spice.service.creation.exception.GenericException;
 import com.spice.service.creation.request.CopyNodeRequest;
+import com.spice.service.creation.request.CutPasteNodeRequest;
 import com.spice.service.creation.request.DeleteTreeNodeRequest;
 import com.spice.service.creation.response.DbResponse;
 import com.spice.service.creation.response.MenuTreeResponse;
@@ -82,6 +83,15 @@ public class MenuTreeService {
 		
 		public ResponseObj copyNode(CopyNodeRequest copyNodeRequest, String userId)  throws Exception {
 			CallableStatement verifyResponses = menuTreeDao.copyNode(copyNodeRequest, userId);
+			if(!"success".equalsIgnoreCase(verifyResponses.getString("OutStatus")))
+				throw new GenericException(verifyResponses.getString("OutStatus"),verifyResponses.getString("OutDesc"), Integer.valueOf(verifyResponses.getString("OutResponseCode")));
+			
+			return new ResponseObj(null , verifyResponses.getString("OutStatus"),verifyResponses.getString("OutDesc"), Integer.valueOf(verifyResponses.getString("OutResponseCode")));
+		}
+		
+		
+		public ResponseObj cutPasteNode(CutPasteNodeRequest request, String userId)  throws Exception {
+			CallableStatement verifyResponses = menuTreeDao.cutPasteNode(request, userId);
 			if(!"success".equalsIgnoreCase(verifyResponses.getString("OutStatus")))
 				throw new GenericException(verifyResponses.getString("OutStatus"),verifyResponses.getString("OutDesc"), Integer.valueOf(verifyResponses.getString("OutResponseCode")));
 			

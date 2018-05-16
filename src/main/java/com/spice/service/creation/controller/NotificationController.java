@@ -33,7 +33,7 @@ public class NotificationController {
 	}
 	
 	@RequestMapping(value = "/viewNotification", method = RequestMethod.GET)
-	public ResponseObj viewNotification(@RequestParam(value="loginId") String loginId, @RequestParam(value="flag") String flag) throws NumberFormatException, SQLException, GenericException {
-		return notificationService.viewNotification(loginId,flag );
+	public ResponseObj viewNotification(@RequestParam(value="loginId") String loginId, @RequestParam(value="flag") String flag, @RequestParam(value="status") String status) throws NumberFormatException, SQLException, GenericException {
+		return notificationService.viewNotification(loginId,flag, status );
 	}
 }

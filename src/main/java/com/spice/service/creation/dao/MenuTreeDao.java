@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spice.service.creation.request.CopyNodeRequest;
+import com.spice.service.creation.request.CutPasteNodeRequest;
 import com.spice.service.creation.request.DeleteTreeNodeRequest;
 import com.spice.service.creation.response.DbResponse;
 import com.spice.service.creation.response.MenuTreeResponse;
@@ -135,6 +136,37 @@ public class MenuTreeDao {
 	         stmt.setString("in_service_id", copyNodeRequest.getInServiceId()); 
 	         stmt.setString("in_source_id",copyNodeRequest.getInSourceId());
 	         stmt.setString("in_destination_id",copyNodeRequest.getInDestinationId());
+	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
+	            stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
+	            stmt.registerOutParameter("OutDesc", Types.VARCHAR);
+	            stmt.execute();
+	            return stmt;
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+		finally {
+		    if (conn != null) {
+		        try {
+		        	conn.close();
+		        } catch (SQLException e) {  }
+		    }
+		}
+		return null;
+		}
+	
+	
+	
+	public CallableStatement cutPasteNode(CutPasteNodeRequest request, String userId) throws Exception {
+		String str = "{call proc_cut_paste_node(?,?,?,?,?,?,?,?)}";
+		Connection conn = null;
+		try  {
+			 conn = DriverManager.getConnection(jdbcUrl,jdbcUserName,jdbcPassword); 
+            CallableStatement stmt=conn.prepareCall(str); 
+	         stmt.setString("in_login_id",userId); 
+	         stmt.setString("in_source_service_id", request.getSourceServiceId()); 
+	         stmt.setString("in_source_node_id",request.getSourceNodeId());
+	         stmt.setString("in_dest_service_id",request.getDestServiceId());
+	         stmt.setString("in_dest_node_id",request.getDestNodeId());
 	         stmt.registerOutParameter("OutStatus", Types.VARCHAR);
 	            stmt.registerOutParameter("OutResponseCode", Types.INTEGER	);
 	            stmt.registerOutParameter("OutDesc", Types.VARCHAR);

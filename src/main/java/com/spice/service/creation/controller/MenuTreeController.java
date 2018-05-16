@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spice.service.creation.request.CopyNodeRequest;
+import com.spice.service.creation.request.CutPasteNodeRequest;
 import com.spice.service.creation.request.DeleteTreeNodeRequest;
 import com.spice.service.creation.response.ResponseObj;
 import com.spice.service.creation.service.MenuTreeService;
@@ -58,5 +59,10 @@ public class MenuTreeController {
 	@RequestMapping(value = "/copyNode", method = RequestMethod.POST)
 	public ResponseObj copyNode(@RequestBody CopyNodeRequest copyNodeRequest,   @RequestHeader(value="userId") String userId) throws Exception {
 		return menuTreeService.copyNode(copyNodeRequest, userId);
+	}
+	
+	@RequestMapping(value = "/cutPasteNode", method = RequestMethod.POST)
+	public ResponseObj cutPasteNode(@RequestBody CutPasteNodeRequest request,   @RequestHeader(value="userId") String userId) throws Exception {
+		return menuTreeService.cutPasteNode(request, userId);
 	}
 }
