@@ -4,8 +4,7 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/" source-path="/src"/>
         <property name="java-output-path" value="/umb-service-creation-managment-scepp/target/classes"/>
-        <property name="context-root" value="umb-service-creation-managment-scepp"/>
+        <property name="context-root" value="mfs-umb-potal-managment"/>
     </wb-module>
 </project-modules>
